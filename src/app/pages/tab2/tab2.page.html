@@ -1,0 +1,11 @@
+<app-header title="Principales Noticias"></app-header>
+<app-uppage [content]="content"></app-uppage>
+<ion-content [fullscreen]="true" [color]="color" scrollEvents>
+  <ion-segment scrollable mode="md" [color]="color">
+    <ion-segment-button mode="md" *ngFor="let category of categories" (click)="loadTopNews(page, category.value)"
+      [value]="category.value" [class.segment-button-checked]="actualCategory===category.value">
+      {{category.name}}
+    </ion-segment-button>
+  </ion-segment>
+  <app-news [news]="news"></app-news>
+</ion-content>
