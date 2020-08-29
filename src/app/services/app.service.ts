@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Storage } from '@ionic/storage';
 import { Platform } from '@ionic/angular';
-import { User, Country } from '../interfaces/interfaces';
+import { User, Country, Category } from '../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,6 @@ export class AppService {
   private dataLoading = new BehaviorSubject<boolean>(true);
   private user = new BehaviorSubject<User>({ name: null, lastname: null });
   private country = new BehaviorSubject<string>(null);
-  private language = new BehaviorSubject<string>(null);
   private color = new BehaviorSubject<string>("dark");
   countries:Country[]= [
     { name: 'Venezuela', code: 've'}, { name: 'Argentina', code: 'ar'},
@@ -26,6 +25,15 @@ export class AppService {
     { name: 'Español', code: 'es' }, { name: 'Inglés', code: 'en' },
     { name: 'Francés', code: 'fr' }, { name: 'Portugués', code: 'pt' },
   ];
+  categories:Category[]=[
+    { name: 'Todas', value: 'general'}, 
+    { name: 'Negocios', value: 'business'}, 
+    { name: 'Ciencia', value: 'science'},
+    { name: 'Tecnología', value: 'technology'},
+    { name: 'Entretenimiento', value: 'entertainment'},
+    { name: 'Salud', value: 'health'},
+    { name: 'Deportes', value: 'sports'}
+  ]
 
   constructor(
     private platform: Platform,
@@ -57,10 +65,6 @@ export class AppService {
   get Country(): string { return this.country.value }
   _Country(): Observable<string> { return this.country.asObservable() }
 
-  set Language(value: string) { this.language.next(value); this._storage.set('language', value); console.log({'language': value}) }
-  get Language(): string { return this.language.value }
-  _Language(): Observable<string> { return this.language.asObservable() }
-
   set Color(value: string) {
     this.color.next(value);
     this._storage.set('color', value===undefined?'undefined':value);
@@ -76,13 +80,10 @@ export class AppService {
     // Country
     let country:string= await this._storage.get('country');
     this.country.next(country? country:"ve");
-    // Language
-    let language:string= await this._storage.get('language');
-    this.language.next(language? language:"es");
     // Color
     let color:string= await this._storage.get('color');
     if (color && color !== this.Color) this.color.next(color==="undefined"? undefined:color);
-    console.log({user, country, language, color});
+    console.log({user, country, color});
     this.DataLoading=false;
   }
 }

@@ -8,7 +8,7 @@
     </ion-toolbar>
   </ion-header>
   <ion-content [color]="color">
-    <form *ngIf="form" [formGroup]="form" id="settingsForm">
+    <form *ngIf="form" [formGroup]="form" id="settingsForm" (ngSubmit)="onSubmit(form, $event)">
       <ion-grid>
         <ion-row class="menu-item-padding menu-item-top ion-justify-content-center">
           <mat-form-field [color]="color" class="full-width" appearance="outline">
@@ -42,23 +42,11 @@
             </mat-error>
           </mat-form-field>
         </ion-row>
-        <ion-row class="menu-item-padding ion-justify-content-center">
-          <mat-form-field class="full-width font-normal" appearance="outline">
-            <mat-label>Lenguaje</mat-label>
-            <mat-select name="language" formControlName="language" [value]="form.controls.language.value">
-              <mat-option *ngFor="let language of languages" [value]="language.code">{{language.name}}</mat-option>
-            </mat-select>
-            <mat-error *ngIf="form.controls.language.invalid">
-              <app-control-message [control]="form.controls.language">
-              </app-control-message>
-            </mat-error>
-          </mat-form-field>
-        </ion-row>
         <ion-row class="menu-item-padding ion-justify-content-center color-toggle">
           Modo Oscruro <mat-slide-toggle formControlName="color" [checked]="form.controls.color.value" ></mat-slide-toggle>
         </ion-row>
         <ion-row class="ion-justify-content-center menu-item-padding-lg" style="margin-top:48px">
-          <ion-button color="success" (click)="onSubmit(form)">Guardar</ion-button>
+          <ion-button color="success" type="submit">Guardar</ion-button>
         </ion-row>
       </ion-grid>
     </form>

@@ -1,4 +1,4 @@
-<ion-card [color]="color" *ngIf="article" [id]="'article-'+id">
+<ion-card [color]="color" *ngIf="article" [id]="'article-'+id" [@fadeInAnimation]>
   <ion-img *ngIf="article.urlToImage && isMobile" [src]="article.urlToImage" class="img-loading" [id]="'article-img-'+id"
       (ionError)="imgError()" (ionImgDidLoad)="imgLoaded()"></ion-img>
   <img *ngIf="article.urlToImage && !isMobile" [src]="article.urlToImage" class="img-loading" [id]="'article-img-'+id"

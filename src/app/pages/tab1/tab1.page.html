@@ -1,4 +1,76 @@
 <app-header title="Buscar Noticias"></app-header>
-<ion-content [fullscreen]="true" [color]="color">
+<app-uppage [content]="content"></app-uppage>
+<ion-content [fullscreen]="true" [color]="color" scrollEvents>
+  <!-- Refresher -->
+  <ion-refresher slot="fixed" (ionRefresh)="loadNews(1, true, $event)">
+    <ion-refresher-content refreshingSpinner="circular"></ion-refresher-content>
+  </ion-refresher>
+  <!-- Form -->
+  <form *ngIf="!hideForm && form" [formGroup]="form" id="searchForm" 
+    (ngSubmit)="onSubmit(form, $event)" [@SearchFormAnimation]>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" sizeLg="4" sizeMd="4" sizeSm="6" sizeXl="12"
+          class="search-form-item-padding search-form-item-top ion-justify-content-center">
+          <mat-form-field [color]="color" class="full-width" appearance="outline">
+            <mat-label>Palabars clave</mat-label>
+            <input matInput name="query" formControlName="query">
+            <mat-error *ngIf="form.controls.query.invalid">
+              <app-control-message [control]="form.controls.query">
+              </app-control-message>
+            </mat-error>
+          </mat-form-field>
+        </ion-col>
+        <ion-col size="12" sizeLg="4" sizeMd="4" sizeSm="6" sizeXl="12"
+          class="search-form-item-padding ion-justify-content-center">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Lenguaje</mat-label>
+            <mat-select name="language" formControlName="language" [value]="form.controls.language.value">
+              <mat-option *ngFor="let language of languages" [value]="language.code">{{language.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls.language.invalid">
+              <app-control-message [control]="form.controls.language">
+              </app-control-message>
+            </mat-error>
+          </mat-form-field>
+        </ion-col>
+        <ion-col size="12" sizeLg="4" sizeMd="4" sizeSm="6" sizeXl="12"
+          class="search-form-item-padding ion-justify-content-center">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Ordenar por</mat-label>
+            <mat-select name="sortBy" formControlName="sortBy" [value]="form.controls.sortBy.value">
+              <mat-option *ngFor="let sort of sortBy" [value]="sort.value">{{sort.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls.sortBy.invalid">
+              <app-control-message [control]="form.controls.sortBy">
+              </app-control-message>
+            </mat-error>
+          </mat-form-field>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <ion-button color="primary" type="submit">Buscar</ion-button>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-text-center search-form-toggle">
+          <a (click)="hideForm=true">
+            <ion-icon name="chevron-up-outline"></ion-icon> Ocultar
+          </a>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+  <!-- Toggle search form -->
+  <ion-row>
+    <ion-col size="12" class="ion-text-center search-form-toggle">
+      <a (click)="hideForm=false"><ion-icon name="chevron-down-outline"></ion-icon> Buscar</a>
+    </ion-col>
+  </ion-row>
+  <!-- Articles -->
   <app-news [news]="news"></app-news>
+  <!-- Infinite Scroll -->
+  <ion-infinite-scroll threshold="0px" [disabled]="news.length>=total" position="bottom" (ionInfinite)="loadNews(page+1, true, $event)">
+    <ion-infinite-scroll-content loadingSpinner="circular" loadingText="Cargando más noticias...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

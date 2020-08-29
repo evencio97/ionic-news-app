@@ -12,6 +12,7 @@ export class AlertsService {
       default: "Operación realizada exitosamente."
     },
     errors: {
+      noQuery: "Debe introducir las palabras claves para poder cargar las noticias.",
       invalidForm: "Hay un error con los datos del formulario, por favor verifique e intente de nuevo.",
       loadingNews: "Ha ocurrido un error cargando las noticias, por favor intenta de nuevo.",
       default: "Ha ocurrido un error, por favor intenta de nuevo."

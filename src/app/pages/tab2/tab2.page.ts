@@ -16,25 +16,16 @@ export class Tab2Page implements OnInit, OnDestroy {
   @ViewChild(IonContent) content: IonContent;
   private subscriptions:Subscription[]=[];
   color:string;
-  categories:Category[]=[
-    { name: 'Todas', value: 'general'}, 
-    { name: 'Negocios', value: 'business'}, 
-    { name: 'Ciencia', value: 'science'},
-    { name: 'Tecnología', value: 'technology'},
-    { name: 'Entretenimiento', value: 'entertainment'},
-    { name: 'Salud', value: 'health'},
-    { name: 'Deportes', value: 'sports'}
-  ]
+  categories:Category[]=this._appService.categories;
   actualCategory:string;
   news:Article[]= [];
   total:number= 0;
   page:number= 1;
-  countryCode:string;
 
   constructor(
     private _appService:AppService,
     private _newsService:NewsService,
-    private _alersService:AlertsService
+    private _alertsService:AlertsService
   ) { }
   
   ngOnInit() {
@@ -42,7 +33,6 @@ export class Tab2Page implements OnInit, OnDestroy {
       this._appService._Color().subscribe(data => this.color = data),
       this._appService._Country().subscribe((data) => {
         if (data){
-          this.countryCode=data;
           this.loadTopNews();
         }
       })
@@ -53,20 +43,26 @@ export class Tab2Page implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub=> sub.unsubscribe());
   }
 
-  loadTopNews(page=1, category="general", source= null, query= null){
-    // if (this.actualCategory===category) return;
-    this._appService.Loading=true;
-    this._newsService.getTopNews(category, source, query).subscribe( resp => {
-      this._appService.Loading=false;
-      if (resp.status==='error' || !('articles' in resp)) this._alersService.showAlert('error', 'loadingNews');
+  loadTopNews(page=1, category="general", newPage=false, $event?){
+    if (this.actualCategory===category && page===this.page && !newPage) return $event? $event.target.complete():null;
+    
+    if (!newPage) this._appService.Loading=true;
+    page= this.actualCategory===category? page:1;
+    this._newsService.getTopNews(category, page).subscribe( resp => {
+      if (!newPage) this._appService.Loading=false;
+      else if ($event) $event.target.complete();
+      if (resp.status==='error' || !('articles' in resp))
+        return this._alertsService.showAlert('error', 'loadingNews');
+      
       this.news=page===1? resp.articles:this.news.concat(resp.articles);
       this.total=resp.totalResults;
       this.page= page;
       this.actualCategory= category;
-      console.log(this.news);
+      console.log({news: this.news, total: this.total, faltan: this.total-this.news.length});
     }, error => {
-      this._appService.Loading=false;
-      this._alersService.showAlert('error');
+      if (!newPage) this._appService.Loading=false;
+      else if ($event) $event.target.complete();
+      this._alertsService.showAlert('error');
     })
   }
 

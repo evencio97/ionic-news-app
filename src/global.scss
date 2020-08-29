@@ -45,10 +45,6 @@ ion-card-subtitle a {
         margin-top: -2px;
     }
 }
-.ion-color-dark ion-card-subtitle a {
-    background-color: #c8c8c8 !important;
-    color: white !important;
-}
 ion-title ion-icon {
     margin-right: 8px;
     margin-bottom: -4px;
@@ -61,6 +57,9 @@ ion-title span{
 }
 .full-width {
     width: 100%;
+}
+ion-infinite-scroll ion-spinner {
+    color: #3880ff !important;
 }
 
 // Swall
@@ -79,7 +78,13 @@ ion-title span{
         background-color: #3880ff !important;
     }
 }
+
+// Dark mode
 .ion-color-dark {
+    ion-card-subtitle a {
+        background-color: white !important;
+        color: #202020 !important;
+    }
     mat-form-field,
     .mat-form-field-outline,
     .mat-form-field-label,
@@ -112,6 +117,11 @@ ion-title span{
         }
         .mat-slide-toggle-thumb {
             background-color: #3880ff !important;
+        }
+    }
+    ion-infinite-scroll {
+        ion-spinner, .infinite-loading-text {
+            color: white !important;
         }
     }
 }

@@ -14,18 +14,16 @@ export class NewsService {
     private _appService: AppService
   ) { }
 
-  getTopNews(category="general", source=null, query=null, page=1){
+  getTopNews(category:string="general", page:number=1){
     let country= this._appService.Country;
     const url= environment.apiURL+'/top-headlines?country='+country+'&category='+category+
-      (source?'&sources='+source:'')+(query?'&q='+query:'')+'&page='+page+'&apiKey='+environment.apiKey;
+      '&page='+page+'&apiKey='+environment.apiKey;
     return this.http.get<NewsResp>(url);
   }
   
-  getNews(source=null, query=null, sortBy=null, page=1){
-    let language= this._appService.Language;
-    const url= environment.apiURL+'/everything?language='+language+
-      (source?'&sources='+source:'')+(query?'&q='+query:'')+(sortBy?'&sortBy='+sortBy:'')+
-      '&page='+page+'&apiKey='+environment.apiKey;
+  getNews(language:string="es", query:string=null, sortBy:string=null, page:number=1){
+    const url= environment.apiURL+'/everything?language='+language+(query?'&q='+query:'')+
+      (sortBy?'&sortBy='+sortBy:'')+'&page='+page+'&apiKey='+environment.apiKey;
     return this.http.get<NewsResp>(url);
   }
 }

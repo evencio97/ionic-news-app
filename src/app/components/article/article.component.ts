@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy } from '@angular/core';
+import { transition, style, animate, trigger } from '@angular/animations';
 import { AppService } from '../../services/app.service';
 import { Article } from '../../interfaces/interfaces';
 import { Subscription } from 'rxjs';
@@ -7,6 +8,15 @@ import { Subscription } from 'rxjs';
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
+  animations: [
+    trigger(
+      'fadeInAnimation', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('.4s', style({ opacity: 1 }))
+      ])
+    ])
+  ]
 })
 export class ArticleComponent implements OnDestroy {
 

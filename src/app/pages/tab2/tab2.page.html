@@ -1,11 +1,22 @@
 <app-header title="Principales Noticias"></app-header>
 <app-uppage [content]="content"></app-uppage>
 <ion-content [fullscreen]="true" [color]="color" scrollEvents>
+  <!-- Category -->
   <ion-segment scrollable mode="md" [color]="color">
-    <ion-segment-button mode="md" *ngFor="let category of categories" (click)="loadTopNews(page, category.value)"
+    <ion-segment-button mode="md" *ngFor="let category of categories" (click)="loadTopNews( page, category.value)"
       [value]="category.value" [class.segment-button-checked]="actualCategory===category.value">
       {{category.name}}
     </ion-segment-button>
   </ion-segment>
+  <!-- Refresher -->
+  <ion-refresher slot="fixed" (ionRefresh)="loadTopNews(1, actualCategory, true, $event)">
+    <ion-refresher-content refreshingSpinner="circular"></ion-refresher-content>
+  </ion-refresher>
+  <!-- Articles -->
   <app-news [news]="news"></app-news>
+  <!-- Infinite Scroll -->
+  <ion-infinite-scroll threshold="0px" [disabled]="news.length>=total" position="bottom" (ionInfinite)="loadTopNews(page+1, actualCategory, true, $event)">
+    <ion-infinite-scroll-content loadingSpinner="circular" loadingText="Cargando más noticias...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

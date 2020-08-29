@@ -18,7 +18,6 @@ export class MenuComponent implements OnInit, OnDestroy {
   form: FormGroup;
   color:string;
   countries:Country[]= this._appService.countries;
-  languages:Country[]= this._appService.languages;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -54,16 +53,12 @@ export class MenuComponent implements OnInit, OnDestroy {
       ],
       color: [
         (this._appService.Color==='dark'? true:false)
-      ],
-      language: [
-        this._appService.Language,
-        [ValidationService.required]
       ]
     });
   }
 
-  onSubmit(form) {
-    // return console.log(form);
+  onSubmit(form, $event) {
+    $event.preventDefault();
     if (!form.valid) return this._alertsService.showAlert('error', 'invalidForm');
     let data = form.value;
     
@@ -72,8 +67,6 @@ export class MenuComponent implements OnInit, OnDestroy {
       this._appService.User= <User>{ name: data.name, lastname: data.lastname };
     
     if (this._appService.Country !== data.country) this._appService.Country= <string>data.country;
-
-    if (this._appService.Language !== data.language) this._appService.Language= <string>data.language;
     
     let newColor= data.color? 'dark':undefined;
     if (this._appService.Color !== newColor)
@@ -82,7 +75,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     this._appService.Loading=false;
     this._alertsService.showAlert('success', 'settingsSaved');
     this.menu.close('menu');
-    this.iniForm();
+    // this.iniForm();
   }
 
 }
