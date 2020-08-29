@@ -8,5 +8,59 @@
     </ion-toolbar>
   </ion-header>
   <ion-content [color]="color">
+    <form *ngIf="form" [formGroup]="form" id="settingsForm">
+      <ion-grid>
+        <ion-row class="menu-item-padding menu-item-top ion-justify-content-center">
+          <mat-form-field [color]="color" class="full-width" appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput name="name" formControlName="name">
+            <mat-error *ngIf="form.controls.name.invalid">
+              <app-control-message [control]="form.controls.name">
+              </app-control-message>
+            </mat-error>
+          </mat-form-field>
+        </ion-row>
+        <ion-row class="menu-item-padding ion-justify-content-center">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Apellido</mat-label>
+            <input matInput name="lastname" formControlName="lastname">
+            <mat-error *ngIf="form.controls.lastname.invalid">
+              <app-control-message [control]="form.controls.lastname">
+              </app-control-message>
+            </mat-error>
+          </mat-form-field>
+        </ion-row>
+        <ion-row class="menu-item-padding ion-justify-content-center">
+          <mat-form-field class="full-width font-normal" appearance="outline">
+            <mat-label>País</mat-label>
+            <mat-select name="country" formControlName="country" [value]="form.controls.country.value">
+              <mat-option *ngFor="let country of countries" [value]="country.code">{{country.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls.country.invalid">
+              <app-control-message [control]="form.controls.country">
+              </app-control-message>
+            </mat-error>
+          </mat-form-field>
+        </ion-row>
+        <ion-row class="menu-item-padding ion-justify-content-center">
+          <mat-form-field class="full-width font-normal" appearance="outline">
+            <mat-label>Lenguaje</mat-label>
+            <mat-select name="language" formControlName="language" [value]="form.controls.language.value">
+              <mat-option *ngFor="let language of languages" [value]="language.code">{{language.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls.language.invalid">
+              <app-control-message [control]="form.controls.language">
+              </app-control-message>
+            </mat-error>
+          </mat-form-field>
+        </ion-row>
+        <ion-row class="menu-item-padding ion-justify-content-center color-toggle">
+          Modo Oscruro <mat-slide-toggle formControlName="color" [checked]="form.controls.color.value" ></mat-slide-toggle>
+        </ion-row>
+        <ion-row class="ion-justify-content-center menu-item-padding-lg" style="margin-top:48px">
+          <ion-button color="success" (click)="onSubmit(form)">Guardar</ion-button>
+        </ion-row>
+      </ion-grid>
+    </form>
   </ion-content>
 </ion-menu>

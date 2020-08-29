@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { transition, style, animate, trigger } from '@angular/animations';
 import { IonContent } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-uppage',
@@ -25,10 +26,10 @@ export class UppageComponent implements OnInit, OnDestroy {
   @Input() set content(content: IonContent) {
     if(!content || this.iniContent) return;
     this.iniContent=content;
-    this.iniContent.ionScroll.subscribe(($event, arg) => { this.showButtonUp($event) });
+    this.subscription= this.iniContent.ionScroll.subscribe(($event, arg) => { this.showButtonUp($event) });
   }
+  private subscription:Subscription;
   iniContent:IonContent= undefined;
-  // scrollSubscribed:boolean= false;
   show:boolean=false;
 
   constructor() { }
@@ -36,7 +37,7 @@ export class UppageComponent implements OnInit, OnDestroy {
   ngOnInit() { }
 
   ngOnDestroy() {
-    this.iniContent?.ionScroll.unsubscribe();
+    this.subscription?.unsubscribe();
   }
   
   scrollTop() {

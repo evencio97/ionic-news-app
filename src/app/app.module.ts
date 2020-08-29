@@ -21,7 +21,9 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule, 
     IonicModule.forRoot(),
-    IonicStorageModule.forRoot(), 
+    IonicStorageModule.forRoot({
+      name: 'newsapp_db',
+    }), 
     AppRoutingModule,
     ComponentsModule,
     HttpClientModule,

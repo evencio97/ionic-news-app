@@ -25,6 +25,8 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+@import "./theme/material.scss";
+
 // Custom
 ion-card-subtitle {
     margin-top: 15px !important;
@@ -34,11 +36,13 @@ ion-card-subtitle a {
     border-radius: 20px !important;
     text-decoration: none !important;
     display: flex !important;
+    align-items: center !important;
     width: fit-content !important;
     color: white !important;
     background-color: #202020 !important;
     ion-icon {
         margin-right: 5px;
+        margin-top: -2px;
     }
 }
 .ion-color-dark ion-card-subtitle a {
@@ -55,8 +59,59 @@ ion-title span{
     padding: 0;
     margin: 0;
 }
+.full-width {
+    width: 100%;
+}
 
 // Swall
 .swal2-container.swal2-backdrop-show, .swal2-container.swal2-noanimation {
     background: rgba(0,0,0,.7) !important;
+}
+
+// Material
+.mat-slide-toggle{
+    &.mat-checked {
+        .mat-slide-toggle-thumb {
+            background-color: #222428 !important;
+        }
+    }
+    .mat-slide-toggle-thumb {
+        background-color: #3880ff !important;
+    }
+}
+.ion-color-dark {
+    mat-form-field,
+    .mat-form-field-outline,
+    .mat-form-field-label,
+    .mat-input-element,
+    .mat-select-value,
+    .mat-select-arrow,
+    .mat-focused .mat-select-arrow,
+    .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+        color: white !important;
+    }
+    .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick,
+    .mat-form-field-invalid.mat-form-field-invalid .mat-form-field-label,
+    .mat-form-field-invalid.mat-form-field-invalid .mat-input-element {
+        color: #f26161 !important;
+    }
+    .mat-input-element {
+        caret-color: white !important;
+    }
+    .mat-form-field-invalid.mat-form-field-invalid .mat-input-element {
+        caret-color: #f26161 !important;
+    }
+    .mat-slide-toggle{
+        &.mat-checked {
+            .mat-slide-toggle-thumb {
+                background-color: white !important;
+            }
+        }
+        .mat-slide-toggle-bar {
+            background-color: rgba(0, 0, 0, 0.5) !important;
+        }
+        .mat-slide-toggle-thumb {
+            background-color: #3880ff !important;
+        }
+    }
 }

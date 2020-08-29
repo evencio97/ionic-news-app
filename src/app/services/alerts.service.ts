@@ -8,9 +8,11 @@ export class AlertsService {
 
   private alertsMsg={
     successes: {
-      default: ""
+      settingsSaved: "La configuración de la aplicación se actualizó exitosamente.",
+      default: "Operación realizada exitosamente."
     },
     errors: {
+      invalidForm: "Hay un error con los datos del formulario, por favor verifique e intente de nuevo.",
       loadingNews: "Ha ocurrido un error cargando las noticias, por favor intenta de nuevo.",
       default: "Ha ocurrido un error, por favor intenta de nuevo."
     }

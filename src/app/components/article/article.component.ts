@@ -1,28 +1,33 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { AppService } from '../../services/app.service';
 import { Article } from '../../interfaces/interfaces';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
 })
-export class ArticleComponent implements OnInit {
+export class ArticleComponent implements OnDestroy {
 
   @Input() article:Article=undefined;
   @Input() id:number=undefined;
   color:string;
   isMobile:boolean;
   loadingImg:boolean=true;
+  private subscriptions:Subscription[]=[];
 
   constructor(
     private _appService:AppService,
   ) {
-    this._appService._Color().subscribe(data => this.color = data);
-    this._appService._IsMobile().subscribe(data => this.isMobile = data);
+    this.subscriptions.push(
+      this._appService._Color().subscribe(data => this.color = data),
+      this._appService._IsMobile().subscribe(data => this.isMobile = data)
+    );
   }
   
-  ngOnInit() {
+  ngOnDestroy() {
+    this.subscriptions.forEach( sub => sub.unsubscribe() );
   }
 
   imgError() {

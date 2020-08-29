@@ -1,18 +1,20 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { AppService } from 'src/app/services/app.service';
 import { NewsService } from '../../services/news.service';
 import { AlertsService } from '../../services/alerts.service';
-import { Article, Category } from '../../interfaces/interfaces';
+import { Article, Category, Country } from '../../interfaces/interfaces';
 import { IonContent } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
-export class Tab2Page implements OnInit {
+export class Tab2Page implements OnInit, OnDestroy {
   
   @ViewChild(IonContent) content: IonContent;
+  private subscriptions:Subscription[]=[];
   color:string;
   categories:Category[]=[
     { name: 'Todas', value: 'general'}, 
@@ -27,22 +29,32 @@ export class Tab2Page implements OnInit {
   news:Article[]= [];
   total:number= 0;
   page:number= 1;
+  countryCode:string;
 
   constructor(
     private _appService:AppService,
     private _newsService:NewsService,
     private _alersService:AlertsService
-  ) {
-    this._appService._Color().subscribe(data => this.color = data);
-  }
+  ) { }
   
   ngOnInit() {
-    // this._appService._Country().subscribe(() => this.loadTopNews());
-    this.loadTopNews();
+    this.subscriptions.push(
+      this._appService._Color().subscribe(data => this.color = data),
+      this._appService._Country().subscribe((data) => {
+        if (data){
+          this.countryCode=data;
+          this.loadTopNews();
+        }
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub=> sub.unsubscribe());
   }
 
   loadTopNews(page=1, category="general", source= null, query= null){
-    if (this.actualCategory===category) return;
+    // if (this.actualCategory===category) return;
     this._appService.Loading=true;
     this._newsService.getTopNews(category, source, query).subscribe( resp => {
       this._appService.Loading=false;
@@ -53,7 +65,6 @@ export class Tab2Page implements OnInit {
       this.actualCategory= category;
       console.log(this.news);
     }, error => {
-      console.log(error);
       this._appService.Loading=false;
       this._alersService.showAlert('error');
     })

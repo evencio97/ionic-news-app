@@ -1,0 +1,13 @@
+.color-toggle{
+    display: flex;
+    align-items: center;
+    mat-slide-toggle {
+        margin-left: 10px;
+    }
+}
+.menu-item-padding {
+    padding: 0 16px;
+    &.menu-item-top {
+        padding-top: 3rem;
+    }
+}

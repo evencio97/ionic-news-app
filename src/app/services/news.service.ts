@@ -15,7 +15,7 @@ export class NewsService {
   ) { }
 
   getTopNews(category="general", source=null, query=null, page=1){
-    let country= this._appService.Country.code;
+    let country= this._appService.Country;
     const url= environment.apiURL+'/top-headlines?country='+country+'&category='+category+
       (source?'&sources='+source:'')+(query?'&q='+query:'')+'&page='+page+'&apiKey='+environment.apiKey;
     return this.http.get<NewsResp>(url);
