@@ -5,12 +5,22 @@
       loading="lazy" (error)="imgError()" (load)="imgLoaded()">
   <ion-skeleton-text animated *ngIf="loadingImg && article.urlToImage"></ion-skeleton-text>
   <ion-card-header>
-    <ion-card-title>{{article.title}}</ion-card-title>
+    <ion-card-title (click)="goToArticle()">{{article.title}}</ion-card-title>
     <ion-card-subtitle>
-      <a routerLink=''>
+      <div class="article-source">
         <ion-icon name="globe-outline" slot="start"></ion-icon> {{article.source.name}}
-      </a>
+      </div>
+      <div class="article-options">
+        <ion-icon (click)="saveArticle($event)" [name]="article.fav?'heart':'heart-outline'"
+          class="animated" [id]="'article-fav-'+id"></ion-icon>
+        <ion-icon (click)="saveArticle($event)" name="share-social"></ion-icon>
+      </div>
     </ion-card-subtitle>
   </ion-card-header>
-  <ion-card-content>{{article.description}}</ion-card-content>
+  <ion-card-content>
+    {{article.description}}
+    <div class="ion-text-center">
+      <ion-button class="article-button" (click)="goToArticle()">Leer más</ion-button>
+    </div>
+  </ion-card-content>
 </ion-card>

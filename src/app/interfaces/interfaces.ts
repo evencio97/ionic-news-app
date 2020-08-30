@@ -29,6 +29,7 @@ export interface Article {
     urlToImage: string;
     publishedAt: string;
     content?: string;
+    fav?: boolean;
 }
 
 export interface Source {

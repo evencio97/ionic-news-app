@@ -1,19 +1,69 @@
 .img-loading {
-    visibility: hidden !important;
-    height: 0px !important;
-    position: absolute !important;
+  visibility: hidden !important;
+  height: 0px !important;
+  position: absolute !important;
 }
 ion-card {
-    img, ion-img, ion-skeleton-text {
-        border-radius: 4px 4px 0 0 !important;
+  img, ion-img, ion-skeleton-text {
+    border-radius: 4px 4px 0 0 !important;
+  }
+  ion-skeleton-text {
+    width: 100%;
+    height: 200px;
+    margin: 0 !important;
+  }
+  ion-card-title {
+    // text-decoration: underline;
+    cursor: pointer;
+  }
+  ion-card-subtitle {
+    display: flex;
+    align-items: center;
+  }
+  .article-source {
+    padding: 5px 15px !important;
+    border-radius: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    width: fit-content !important;
+    height: fit-content !important;
+    color: white !important;
+    background-color: #202020 !important;
+    ion-icon {
+      margin-right: 5px;
+      margin-top: -2px;
     }
+  }
+  .article-options {
+    font-size: 25px !important;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    margin-left: auto;
+    ion-icon {
+      padding: 5px 10px;
+    }
+  }
+  .article-button {
+    margin: 30px 0 15px 0;
+    color: white !important;
+    --background: #202020 !important;
+  }
+  &.ion-color-dark {
     ion-skeleton-text {
-        width: 100%;
-        height: 200px;
-        margin: 0 !important;
+      background-color: #fff !important;
+      margin: 0 !important;
     }
-    &.ion-color-dark ion-skeleton-text {
-        background-color: #fff !important;
-        margin: 0 !important;
+    .article-button {
+      --background: white !important;
+      color: #202020 !important;
     }
+    .article-source {
+      background-color: white !important;
+      color: #202020 !important;
+    }
+    .article-options ion-icon {
+      color: white !important;
+    }
+  }
 }
