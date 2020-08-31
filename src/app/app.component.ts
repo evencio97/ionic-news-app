@@ -46,7 +46,11 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this._appService._Color().subscribe( data=> {
-        if (data==="dark") return this.statusBar.styleLightContent();
+        if (data==="dark") {
+          this.statusBar.backgroundColorByHexString("#222428");
+          return this.statusBar.styleLightContent();
+        }
+        this.statusBar.backgroundColorByHexString("#ffffff");
         this.statusBar.styleDefault();
       });
       this.splashScreen.hide();
