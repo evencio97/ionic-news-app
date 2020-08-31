@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="/src/assets/icon/favicon.png" width="120px" height = auto>
+    <img src="/src/assets/icon/logo.png" width="120px" height = auto>
 </p>
 <p align="center">
     <a href="https://github.com/evencio97">Evencio Hernández</a>
