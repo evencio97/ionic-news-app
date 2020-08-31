@@ -11,9 +11,9 @@
         <ion-icon name="globe-outline" slot="start"></ion-icon> {{article.source.name}}
       </div>
       <div class="article-options">
-        <ion-icon (click)="saveArticle($event)" [name]="article.fav?'heart':'heart-outline'"
-          class="animated" [id]="'article-fav-'+id"></ion-icon>
-        <ion-icon (click)="saveArticle($event)" name="share-social"></ion-icon>
+        <ion-icon (click)="toggleFavArticle($event)" [name]="article.fav?'heart':'heart-outline'"
+          class="heartBeat" [id]="'article-fav-'+id"></ion-icon>
+        <ion-icon (click)="shareArticle($event)" class="rubberBand" name="share-social"></ion-icon>
       </div>
     </ion-card-subtitle>
   </ion-card-header>

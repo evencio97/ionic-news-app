@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { AppService } from 'src/app/services/app.service';
 import { NewsService } from '../../services/news.service';
 import { AlertsService } from '../../services/alerts.service';
-import { Article, Category, Country } from '../../interfaces/interfaces';
+import { Article, Category } from '../../interfaces/interfaces';
 import { IonContent } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
@@ -58,7 +58,7 @@ export class Tab2Page implements OnInit, OnDestroy {
       this.total=resp.totalResults;
       this.page= page;
       this.actualCategory= category;
-      console.log({news: this.news, total: this.total, faltan: this.total-this.news.length});
+      // console.log({news: this.news, total: this.total, faltan: this.total-this.news.length});
     }, error => {
       if (!newPage) this._appService.Loading=false;
       else if ($event) $event.target.complete();

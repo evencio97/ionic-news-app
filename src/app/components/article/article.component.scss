@@ -13,7 +13,6 @@ ion-card {
     margin: 0 !important;
   }
   ion-card-title {
-    // text-decoration: underline;
     cursor: pointer;
   }
   ion-card-subtitle {
@@ -42,6 +41,7 @@ ion-card {
     margin-left: auto;
     ion-icon {
       padding: 5px 10px;
+      color: var(--ion-color-primary, #3880ff);
     }
   }
   .article-button {

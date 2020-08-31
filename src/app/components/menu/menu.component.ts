@@ -75,7 +75,6 @@ export class MenuComponent implements OnInit, OnDestroy {
     this._appService.Loading=false;
     this._alertsService.showAlert('success', 'settingsSaved');
     this.menu.close('menu');
-    // this.iniForm();
   }
 
 }

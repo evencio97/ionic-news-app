@@ -1,6 +1,8 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { transition, style, animate, trigger } from '@angular/animations';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { ToastController } from '@ionic/angular';
 import { AppService } from '../../services/app.service';
 import { Article } from '../../interfaces/interfaces';
 import { Subscription } from 'rxjs';
@@ -14,7 +16,7 @@ import { Subscription } from 'rxjs';
       'fadeInAnimation', [
       transition(':enter', [
         style({ opacity: 0 }),
-        animate('.4s', style({ opacity: 1 }))
+        animate('.5s', style({ opacity: 1 }))
       ])
     ])
   ]
@@ -26,12 +28,13 @@ export class ArticleComponent implements OnDestroy {
   color:string;
   isMobile:boolean;
   loadingImg:boolean=true;
-  // private firstFav:boolean=true;
   private subscriptions:Subscription[]=[];
 
   constructor(
     private appBrowser:InAppBrowser,
     private _appService:AppService,
+    private socialSharing: SocialSharing,
+    public toastController: ToastController
   ) {
     this.subscriptions.push(
       this._appService._Color().subscribe(data => this.color = data),
@@ -57,23 +60,38 @@ export class ArticleComponent implements OnDestroy {
     this.appBrowser.create(this.article.url, '_system');
   }
 
-  // saveArticle($event) {
-  //   if (!$event && $event.target) return;
-  //   const icon= $event.target;
-  //   this.article.fav=!this.article.fav;
-  //   if (this.firstFav){
-  //     icon.addEventListener('animationend', function (){ icon.classList.remove("heartBeat"); });
-  //     this.firstFav=false;
-  //   }
-  //   icon.classList.add("heartBeat");
-  // }
-  saveArticle($event) {
+  async presentToast(message:string) {
+    const toast = await this.toastController.create({
+      message: message, duration: 1500, keyboardClose: true
+    });
+    toast.present();
+  }
+
+  addAnimation(elem:HTMLElement, animation:string="animated") {
+    elem.classList.add("animated");
+    if (elem.onanimationend) return;
+    elem.onanimationend=function (){ elem.classList.remove(animation);}
+  }
+
+  toggleFavArticle($event) {
     if (!$event && $event.target) return;
     const icon= $event.target;
-    icon.classList.remove("heartBeat");
-    setTimeout(() => {
-      this.article.fav=!this.article.fav;
-      icon.classList.add("heartBeat");
-    }, 5);
+    this.article.fav=!this.article.fav;
+    if (this.article.fav) this._appService.addFavArticle( this.article );
+    else this._appService.removeFavArticle( this.article );
+    this.presentToast(this.article.fav? 'Noticia guardada en favoritos': 'Noticia eliminada de favoritos')
+    this.addAnimation(icon);
+  }
+
+  shareArticle($event) {
+    if (!$event && $event.target) return;
+    const icon= $event.target;
+    this.socialSharing.share(
+      this.article.title,
+      this.article.source.name,
+      '',
+      this.article.url
+    );
+    this.addAnimation(icon);
   }
 }

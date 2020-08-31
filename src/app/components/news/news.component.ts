@@ -11,6 +11,8 @@ import { Subscription } from 'rxjs';
 export class NewsComponent implements OnDestroy {
 
   @Input() news:Article[]=[];
+  @Input() noNewsMsg:string="No se encontraron noticias";
+  @Input() noNewsIcon:string="alert-circle";
   color:string;
   private subscription:Subscription;
 

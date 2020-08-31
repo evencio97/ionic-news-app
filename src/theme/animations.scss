@@ -7,6 +7,14 @@
   animation-duration: var(--animation-time, 1s);
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
+  &.fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+  }
+  &.fadeOut {
+    -webkit-animation-name: fadeOut;
+    animation-name: fadeOut;
+  }
   &.zoomIn {
     -webkit-animation-name: zoomIn;
     animation-name: zoomIn;
@@ -59,6 +67,22 @@
   }
   50% {
     opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 @keyframes zoomIn {

@@ -9,6 +9,7 @@ import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
 import { UppageComponent } from './uppage/uppage.component';
 import { ControlMessageComponent } from './control-message/control-message.component';
+import { SplashscreenComponent } from './splashscreen/splashscreen.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { ControlMessageComponent } from './control-message/control-message.compo
     HeaderComponent,
     MenuComponent,
     UppageComponent,
-    ControlMessageComponent
+    ControlMessageComponent,
+    SplashscreenComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { ControlMessageComponent } from './control-message/control-message.compo
     HeaderComponent,
     MenuComponent,
     UppageComponent,
-    ControlMessageComponent
+    ControlMessageComponent,
+    SplashscreenComponent
   ]
 })
 export class ComponentsModule { }

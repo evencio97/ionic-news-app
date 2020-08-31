@@ -86,7 +86,6 @@ export class Tab1Page implements OnInit, OnDestroy {
 
   loadNews(page:number=1, newPage:boolean=false, $event?){
     if (!this.data.query || this.data.query.trim().lenght<1){
-      console.log(this.data)
       if ($event) $event.target.complete();
       return this._alertsService.showAlert('error', 'noQuery');
     }
@@ -101,8 +100,7 @@ export class Tab1Page implements OnInit, OnDestroy {
       this.news=page===1? resp.articles:this.news.concat(resp.articles);
       this.total=resp.totalResults;
       this.page= page;
-      // this.iniForm();
-      console.log({news: this.news, total: this.total, faltan: this.total-this.news.length});
+      // console.log({news: this.news, total: this.total, faltan: this.total-this.news.length});
     }, error => {
       if (!newPage) this._appService.Loading=false;
       else if ($event) $event.target.complete();

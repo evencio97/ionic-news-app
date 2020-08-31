@@ -1,0 +1,9 @@
+<div class="ion-justify-content-center ion-align-items-center splash-screen">
+  <div *ngIf="fullName" class="animated fadeIn">
+    <p class="splash-screen-msg">Hola {{fullName}}!</p>
+    <p class="splash-screen-loading animated pulse infinite duration-slower">cargando....</p>
+  </div>
+  <div *ngIf="!fullName" class="animated fadeIn">
+    <p class="splash-screen-loading animated pulse infinite duration-slower no-name">cargando....</p>
+  </div>
+</div>
