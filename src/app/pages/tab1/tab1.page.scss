@@ -20,10 +20,8 @@
 .search-form-toggle {
     padding: 0;
     margin-bottom: 20px;
-    border-block-end: 2px solid var(--ion-color-primary, #3880ff);
     color: var(--ion-color-primary, #3880ff);
     .ion-color-dark &{
-        border-block-end: 2px solid rgba(255,255,255,.7);
         a {
             color: white;
         }
@@ -38,5 +36,12 @@
         ion-icon{
             margin-right: 10px;
         }
+    }
+}
+
+.search-border-end {
+    border-block-end: 2px solid var(--ion-color-primary, #3880ff) !important;
+    .ion-color-dark &{
+        border-block-end: 2px solid rgba(255,255,255,.7) !important;
     }
 }

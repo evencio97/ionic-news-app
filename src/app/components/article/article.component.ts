@@ -1,5 +1,4 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { transition, style, animate, trigger } from '@angular/animations';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { ToastController } from '@ionic/angular';
@@ -10,16 +9,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
-  styleUrls: ['./article.component.scss'],
-  animations: [
-    trigger(
-      'fadeInAnimation', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('.5s', style({ opacity: 1 }))
-      ])
-    ])
-  ]
+  styleUrls: ['./article.component.scss']
 })
 export class ArticleComponent implements OnDestroy {
 
@@ -54,6 +44,7 @@ export class ArticleComponent implements OnDestroy {
   imgLoaded() {
     this.loadingImg= false;
     document.getElementById('article-img-'+this.id).classList.remove('img-loading');
+    document.getElementById('article-img-'+this.id).classList.add('animated', 'fadeIn');
   }
 
   goToArticle(){

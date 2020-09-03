@@ -6,7 +6,7 @@
     <ion-refresher-content refreshingSpinner="circular"></ion-refresher-content>
   </ion-refresher>
   <!-- Form -->
-  <form *ngIf="!hideForm && form" [formGroup]="form" id="searchForm" 
+  <form *ngIf="!hideForm && form" [formGroup]="form" id="searchForm" class="search-border-end"
     (ngSubmit)="onSubmit(form, $event)" [@SearchFormAnimation]>
     <ion-grid>
       <ion-row>
@@ -62,12 +62,13 @@
   </form>
   <!-- Toggle search form -->
   <ion-row>
-    <ion-col size="12" class="ion-text-center search-form-toggle">
+    <ion-col size="12" class="ion-text-center search-form-toggle search-border-end">
       <a (click)="hideForm=false"><ion-icon name="chevron-down-outline"></ion-icon> Buscar</a>
     </ion-col>
   </ion-row>
   <!-- Articles -->
-  <app-news [news]="news"></app-news>
+  <app-news [news]="news" [noNewsMsg]="data.query? undefined:'Realiza una búsqueda'"
+    [noNewsIcon]="data.query? undefined:'search-outline'"></app-news>
   <!-- Infinite Scroll -->
   <ion-infinite-scroll threshold="0px" [disabled]="news.length>=total" position="bottom" (ionInfinite)="loadNews(page+1, true, $event)">
     <ion-infinite-scroll-content loadingSpinner="circular" loadingText="Cargando más noticias...">

@@ -98,6 +98,7 @@ export class Tab1Page implements OnInit, OnDestroy {
         return this._alertsService.showAlert('error', 'loadingNews');
       
       this.news=page===1? resp.articles:this.news.concat(resp.articles);
+      if (this.news.length) this.hideForm=true;
       this.total=resp.totalResults;
       this.page= page;
       // console.log({news: this.news, total: this.total, faltan: this.total-this.news.length});

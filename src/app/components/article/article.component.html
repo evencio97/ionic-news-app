@@ -1,8 +1,6 @@
-<ion-card [color]="color" *ngIf="article" [id]="'article-'+id" [@fadeInAnimation]>
-  <ion-img *ngIf="article.urlToImage && isMobile" [src]="article.urlToImage" class="img-loading" [id]="'article-img-'+id"
-      (ionError)="imgError()" (ionImgDidLoad)="imgLoaded()"></ion-img>
-  <img *ngIf="article.urlToImage && !isMobile" [src]="article.urlToImage" class="img-loading" [id]="'article-img-'+id"
-      loading="lazy" (error)="imgError()" (load)="imgLoaded()">
+<ion-card [color]="color" *ngIf="article" [id]="'article-'+id">
+  <img (error)="imgError()" (load)="imgLoaded()"class="img-loading"
+    [id]="'article-img-'+id" [src]="article.urlToImage"/>
   <ion-skeleton-text animated *ngIf="loadingImg && article.urlToImage"></ion-skeleton-text>
   <ion-card-header>
     <ion-card-title (click)="goToArticle()">{{article.title}}</ion-card-title>
